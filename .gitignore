@@ -1,0 +1,6 @@
+*.o
+libft/libft.a
+libft/README.md
+ft_malcolm
+TODO.md
+.vscode
