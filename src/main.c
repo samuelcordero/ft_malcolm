@@ -10,9 +10,6 @@
 #include <sys/ioctl.h>
 #include "ft_malcolm.h"
 
-
-
-
 void print_arp_packet(const unsigned char *buf) {
 	const struct ether_header *eth = (const struct ether_header *)buf;
 	const struct arp_packet *arp = (const struct arp_packet *)(buf + sizeof(struct ether_header));
@@ -109,7 +106,7 @@ void send_arp_packet(int sock, const char *iface,
 		exit(EXIT_FAILURE);
 	}
 	// Ethernet header
-	ft_memcpy(eth->ether_dhost, target_mac_conv, ETH_ALEN); // broadcast
+	ft_memcpy(eth->ether_dhost, target_mac_conv, ETH_ALEN);
 	ft_memcpy(eth->ether_shost, source_mac_conv, ETH_ALEN);
 	eth->ether_type = htons(ETH_P_ARP);
 
@@ -118,7 +115,7 @@ void send_arp_packet(int sock, const char *iface,
 	arp->hdr.ar_pro = htons(ETH_P_IP);
 	arp->hdr.ar_hln = ETH_ALEN;
 	arp->hdr.ar_pln = 4;
-	arp->hdr.ar_op  = htons(ARPOP_REPLY); // or ARPOP_REQUEST
+	arp->hdr.ar_op  = htons(ARPOP_REPLY);
 
 	// IPs
 	struct in_addr src_ip, dst_ip;
@@ -128,7 +125,7 @@ void send_arp_packet(int sock, const char *iface,
 	// Fill ARP payload
 	ft_memcpy(arp->sender_mac, source_mac_conv, ETH_ALEN);
 	ft_memcpy(arp->sender_ip, &src_ip.s_addr, 4);
-	ft_memcpy(arp->target_mac, target_mac_conv, ETH_ALEN); // unknown
+	ft_memcpy(arp->target_mac, target_mac_conv, ETH_ALEN);
 	ft_memcpy(arp->target_ip, &dst_ip.s_addr, 4);
 
 	len = sizeof(struct ether_header) + sizeof(struct arp_packet);
@@ -143,7 +140,6 @@ void send_arp_packet(int sock, const char *iface,
 	// Packet ready
 	print_arp_packet(buf);
 
-	// --- Send the packet ---
 	if (sendto(sock, buf, len, 0,
 			   (struct sockaddr *)&socket_address, sizeof(socket_address)) < 0) {
 		perror("sendto");
