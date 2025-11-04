@@ -4,7 +4,10 @@ CC = gcc
 LIBFT = libft/libft.a
 LD = -L libft -lft
 INCLUDE = inc/ft_malcolm.h 
-SRC = src/main.c
+SRC =	src/main.c \
+		src/arp.c \
+		src/parse.c \
+		src/utils.c
 OBJ = $(SRC:.c=.o)
 RM=/bin/rm -f
 
