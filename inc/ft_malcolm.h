@@ -39,7 +39,7 @@ typedef struct s_malcolm
 }		t_malcolm;
 
 // src/arp.c
-void	send_arp_packet(int sock, const char *iface, t_malcolm *malcolm);
+void	send_arp_packet(int sock, int ifaceid, t_malcolm *malcolm);
 
 // src/parse.c
 int		parse(int argc, char **argv, t_malcolm *malcolm);

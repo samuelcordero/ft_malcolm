@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
 			printf("===This one wants mango!===\n");
 
 			printf("Building ARP packet...\n");
-			send_arp_packet(sock, "enp10s0", &malcolm);
+			send_arp_packet(sock, addr.sll_ifindex, &malcolm);
 			break ;
 		} else {
 			printf("\n=== ARP Packet ===\n");

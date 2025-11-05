@@ -1,6 +1,6 @@
 #include "ft_malcolm.h"
 
-void	send_arp_packet(int sock, const char *iface, t_malcolm *malcolm) {
+void	send_arp_packet(int sock, int ifaceid, t_malcolm *malcolm) {
 	struct sockaddr_ll socket_address;
 	unsigned char *buf;
 	struct ether_header *eth;
@@ -41,7 +41,7 @@ void	send_arp_packet(int sock, const char *iface, t_malcolm *malcolm) {
 	ft_memset(&socket_address, 0, sizeof(socket_address));
 	socket_address.sll_halen = ETH_ALEN;
 	socket_address.sll_family = AF_PACKET;
-	socket_address.sll_ifindex = if_nametoindex(iface);
+	socket_address.sll_ifindex = ifaceid;
 	ft_memset(socket_address.sll_addr, 0xff, ETH_ALEN); // broadcast
 
 	print_arp_packet(buf);
